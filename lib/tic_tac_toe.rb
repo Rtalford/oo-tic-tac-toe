@@ -28,7 +28,7 @@ class TicTacToe
      
     end 
 
-    def move(input_to_index, player)
+    def move(input_to_index, player = "X")
         @board[input_to_index] = player
     end
   
@@ -41,7 +41,8 @@ class TicTacToe
     end
 
     def valid_move?(input_to_index)
-        !position_taken?(input_to_index) && @board[input_to_index]
+        
+        !position_taken?(input_to_index) && input_to_index.between?(0,8)
         
     end
 
@@ -77,16 +78,13 @@ class TicTacToe
     end
 
     def full? 
-        @board.all? {|combo| combo == "X" || combo == "0"}
+        !@board.any? {|combo| combo == "" || combo == " "}
         
     end
 
     def draw?
-        if !won? && full?
-             true 
-        else
-             false
-        end 
+     !won? && full?
+         
     end
 
     def over?
